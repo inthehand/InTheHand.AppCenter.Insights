@@ -73,22 +73,11 @@ namespace Xamarin
         {
             if (!_isDebug)
             {
-                string name = "Unknown Error";
                 IDictionary<string, string> properties = extraData == null ? new Dictionary<string, string>() : extraData;
-
-                if (exception != null)
-                {
-                    name = exception.GetType().Name;
-                    properties.Add("Message", exception.Message);
-                    if (!string.IsNullOrEmpty(exception.StackTrace))
-                    {
-                        properties.Add("StackTrace", exception.StackTrace);
-                    }
-                }
 
                 properties.Add("Severity", warningLevel.ToString());
 
-                Analytics.TrackEvent(name, properties);
+                Crashes.TrackError(exception, properties);
             }
         }
 
@@ -204,11 +193,12 @@ namespace Xamarin
 
         public enum Severity
         {
-            Warning = 0,
-            Error,
+            Error = 0,
+            Warning,
             Critical,
         }
 
+        [Obsolete("Unused", false)]
         public enum ReportSeverity
         {
             Warning = 0,
