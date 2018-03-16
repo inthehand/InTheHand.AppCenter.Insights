@@ -22,7 +22,7 @@ namespace Xamarin
             if (!_isDebug)
             {
                 CustomProperties properties = new CustomProperties();
-                properties.Set("Unique ID", uid);
+                properties.Set("UniqueID", uid);
 
                 if (table != null)
                 {
